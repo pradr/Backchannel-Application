@@ -6,18 +6,19 @@ Project1::Application.routes.draw do
   resources :sessions, :only => [:new, :create, :destroy]
   resources :microposts, :only => [:create, :destroy, :vote]
   resources :comments, :only => [:create, :destroy]
-  resources :votes, :only => [:create]
+  resources :votes, :only => [:create, :vote_comments]
 
   match '/signup',  :to => 'users#new'
   match '/signin',  :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'
   match '/microposts', :to => 'microposts#new'
   match '/comments', :to => 'comments#new'
-  match '/votes', :to => 'microposts#vote'
+  match '/votes', :to => 'votes#create'
 
   get "pages/home"
   get "users/new"
   get "microposts/new"
+  get "votes/new"
 
 
 

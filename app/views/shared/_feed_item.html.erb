@@ -3,6 +3,7 @@
                 <span class="user"><%= link_to feed_item.user.name, feed_item.user %></span>
                 <span class="content"><%= feed_item.content %></span>
                 <span class="timestamp">Posted <%= time_ago_in_words(feed_item.created_at) %> ago. </span>
+                <span class="timestamp"> <%= pluralize(Micropost.find(feed_item.id).votes.count, 'Vote') %></span>
         </td>
         <% if current_user?(feed_item.user) %>
                 <td>
@@ -11,11 +12,13 @@
                                              :title => feed_item.content %>
                 </td>
         <% else %>
+                <% if signed_in? %>
                 <td>
-                        <%= link_to "Like", :url => {:controller => 'microposts', :method => 'vote', 
-                                :mp_id => feed_item.id}%>
+                        <%= link_to "Like", :method => :post, :controller => 'votes', 
+                                :action => 'create', :post_id => feed_item.id , :comment_id => 0,  :option => 1%>
                 </td>
 
+                <% end %>
           <% end %>
 </tr>
 

@@ -6,17 +6,6 @@ class MicropostsController < ApplicationController
     @title = "Microposts"
   end
 
-  def vote
-          @vote = Vote.where(:micropost_id => , :user_id => current_user.id)
-          if(@vote == nil)
-      flash[:success] = "NIL"
-      redirect_to root_path
-          else
-      flash[:success] = "EXIST"
-      redirect_to root_path
-          end
-
-  end
   def create
     @micropost = current_user.microposts.build(params[:micropost])
     if @micropost.save
