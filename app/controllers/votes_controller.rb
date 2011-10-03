@@ -9,6 +9,8 @@ class VotesController < ApplicationController
                       @vote  = @post.votes.find_by_user_id(current_user.id)
                       if(@vote == nil)
                               flash[:success] = "Post Voted !"
+                              @post.weight += 100
+                              @post.save
                               @vote = Vote.new
                               @vote.user_id = current_user.id
                               @vote.micropost_id = params[:post_id]
